@@ -30,8 +30,9 @@ class Weather
     params[:hourly] = hourly if hourly
 
     # Build the full URL with query params
-    uri = URI(base_url) # --> this becomes # <URI::HTTPS https://api.open-meteo.com/v1/forecast>
-    uri.query = URI.encode_www_form(params)
+    uri = URI(base_url) # --> this becomes # <URI::HTTPS https://api.open-meteo.com/v1/forecast> --> it creates the uri object
+    uri.query = URI.encode_www_form(params) # --> it constructs the url with the provided params
+
 
     # Make the request
     response = Net::HTTP.get(uri)
