@@ -10,7 +10,7 @@ class Weather
 # Define the endpoint
 url = URI("https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&past_days=1&daily=temperature_2m_max")
 
-# forecast_days default to 7
+# forecast_days defaults to 7
 # So you are getting:
 # 1 day in the past (yesterday)
 # 7 days into the future
