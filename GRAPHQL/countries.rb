@@ -62,6 +62,7 @@ class Countries
         countries(filter: {continent: {eq: "EU"}}) {
           name
           code
+          emoji
         }
     }
     GRAPHQL
@@ -74,8 +75,27 @@ class Countries
   )
 
   data2 = JSON.parse(response2.body)
-
   puts JSON.pretty_generate(data2)
 
+
+  query3 = {
+    query: <<~GRAPHQL
+      {
+    countries(filter: {continent: {in: ["EU", "AS"]}}) {
+      name
+      code
+      emoji
+      }
+    }
+    GRAPHQL
+  }
+
+  response3 = Net::HTTP.post(
+    url,
+    query3.to_json,
+    "Content-Type" => "application/json")
+
+  data3 = JSON.parse(response3.body)
+  puts JSON.pretty_generate(data3)
 
 end
