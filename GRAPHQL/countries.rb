@@ -2,6 +2,8 @@ require 'net/http'
 require 'json'
 require 'uri'
 
+require 'pp'
+
 class Countries
   # Define the GraphQL endpoint
   url = URI("https://countries.trevorblades.com/")
@@ -46,12 +48,34 @@ class Countries
 
   # Print the data
   puts JSON.pretty_generate(data)
-
   puts data["data"].keys.first.class # confirm the type of the key
+  puts data["data"]["country"]["name"] # query ramdom field from the ruby hash
+  pp data
+  puts data
 
-  # query ramdom field from the ruby hash
 
-  puts data["data"]["country"]["name"]
+
+  # FILTERS
+  query2 = {
+    query: <<~GRAPHQL
+      {
+        countries(filter: {continent: {eq: "EU"}}) {
+          name
+          code
+        }
+    }
+    GRAPHQL
+  }
+
+  response2 = Net::HTTP.post(
+    url,
+    query2.to_json,
+    "Content-Type" => "application/json"
+  )
+
+  data2 = JSON.parse(response2.body)
+
+  puts JSON.pretty_generate(data2)
 
 
 end
