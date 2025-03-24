@@ -10,10 +10,25 @@ class Countries
   query = {
     query: <<~GRAPHQL
       {
-        country(code: "GB") {
-          name
+        country(code: "BG") {
+          awsRegion
           capital
+          code
+          continent {
+            name
+          }
           currency
+          emoji
+          languages {
+            name
+          }
+          name
+          phone
+          subdivisions {
+            name
+            emoji
+            code
+          }
         }
       }
     GRAPHQL
@@ -31,5 +46,12 @@ class Countries
 
   # Print the data
   puts JSON.pretty_generate(data)
+
+  puts data["data"].keys.first.class # confirm the type of the key
+
+  # query ramdom field from the ruby hash
+
+  puts data["data"]["country"]["name"]
+
 
 end
